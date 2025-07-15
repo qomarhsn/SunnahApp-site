@@ -1,58 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Coming Soon</title>
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SunnahApp</title>
+  <link rel="icon" type="image/x-icon" href="/images/siteicons/icon.svg" />
+  <meta name="author" content="AlfaazPlus" />
+  <meta property="og:title" content="SunnahApp" />
+  <meta name="theme-color" content="#008B5B" />
 
-		body {
-			height: 100vh;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			background: linear-gradient(135deg, #3c745f, #000000);
-			font-family: Arial, sans-serif;
-			color: #fff;
-			text-align: center;
-		}
+  <!-- Tailwind CSS from CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-		.container {
-			animation: fadeIn 1.5s ease-in-out;
-		}
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" />
 
-		h1 {
-			font-size: 4rem;
-			letter-spacing: 2px;
-			text-transform: uppercase;
-			margin-bottom: 10px;
-		}
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            outfit: ["Outfit", "sans-serif"],
+            amiri: ["Amiri", "serif"],
+          },
+          colors: {
+            quran: {
+              DEFAULT: "#008B5B",
+              50: "#F0F9F7",
+              100: "#C2E3D3",
+              200: "#8FCDB0",
+              300: "#5CA68A",
+              400: "#2F7D63",
+              500: "#008B5B",
+              600: "#006F4A",
+              700: "#00533A",
+              800: "#003A2B",
+              900: "#00241D",
+            },
+            gold: {
+              DEFAULT: "#D4AF37",
+              light: "#F8EFD4",
+              dark: "#A08429",
+            },
+          },
+          animation: {
+            "fade-in": "fadeIn 0.4s ease-out",
+            "fade-in-up": "fadeInUp 0.5s ease-out",
+            "scale-in": "scaleIn 0.3s ease-out",
+          },
+          keyframes: {
+            fadeIn: {
+              "0%": {
+                opacity: "0"
+              },
+              "100%": {
+                opacity: "1"
+              },
+            },
+            fadeInUp: {
+              "0%": {
+                opacity: "0",
+                transform: "translateY(10px)"
+              },
+              "100%": {
+                opacity: "1",
+                transform: "translateY(0)"
+              },
+            },
+            scaleIn: {
+              "0%": {
+                opacity: "0",
+                transform: "scale(0.95)"
+              },
+              "100%": {
+                opacity: "1",
+                transform: "scale(1)"
+              },
+            },
+          },
+        },
+      },
+    };
+  </script>
 
-		p {
-			font-size: 1.5rem;
-			opacity: 0.8;
-		}
+  <style>
+    body {
+      font-family: "Outfit", sans-serif;
+    }
 
-		@keyframes fadeIn {
-			from {
-				opacity: 0;
-				transform: scale(0.8);
-			}
-			to {
-				opacity: 1;
-				transform: scale(1);
-			}
-		}
-	</style>
+    .section-title {
+      @apply text-3xl md:text-4xl font-bold mb-6 text-quran-400 relative;
+    }
+
+    .section-title::after {
+      content: "";
+      @apply block w-20 h-1 bg-quran-400 mt-2 mx-auto;
+    }
+  </style>
 </head>
-<body>
-<div class="container">
-	<h1>WIP</h1>
-</div>
+
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+  <!-- Main Content -->
+  <main>
+    <!-- Privacy Section -->
+    <section id="privacy" class="py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="section-title mx-auto">Privacy Policy</h2>
+          <p class="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Last updated: February 13, 2023
+          </p>
+        </div>
+
+        <div class="max-w-3xl mx-auto">
+          <div class="space-y-12">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">Permissions</h3>
+              <p class="text-gray-600 dark:text-gray-300">
+                We currently do not ask for any special permissions of your
+                device such as GPS, camera, contacts, storage etc, because the
+                App currently does not rely on them.
+              </p>
+            </div>
+
+            <div>
+              <h3 class="text-2xl font-bold mb-4">Data Safety</h3>
+              <p class="text-gray-600 dark:text-gray-300">
+                We are committed to protect your personal information and your
+                right to privacy. We do not collect, store or share your
+                personal information. We do not share your information with
+                third-parties.
+              </p>
+            </div>
+
+            <div>
+              <h3 class="text-2xl font-bold mb-4">What We Don't Collect</h3>
+              <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+                <ul class="list-disc pl-5 text-gray-600 dark:text-gray-300 space-y-2">
+                  <li>We don't track your activity or usage patterns</li>
+                  <li>We don't collect your location data</li>
+                  <li>
+                    We don't access your contacts or other personal
+                    information
+                  </li>
+                  <li>
+                    We don't read or write to your device storage without
+                    permission
+                  </li>
+                  <li>We don't use cookies or web beacons to track you</li>
+                  <li>
+                    We don't share any data with third parties or advertisers
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-2xl font-bold mb-4">Third-Party Services</h3>
+              <p class="text-gray-600 dark:text-gray-300">
+                SunnahApp doesn't integrate with any third-party services that
+                could compromise your privacy. We don't include any analytics,
+                tracking, or advertising frameworks in our application.
+              </p>
+            </div>
+
+            <div>
+              <h3 class="text-2xl font-bold mb-4">Contact Us</h3>
+              <p class="text-gray-600 dark:text-gray-300">
+                If you want further information about our Privacy Policy,
+                please feel free to contact us at
+                <a href="mailto:alfaazplus@gmail.com" class="text-quran hover:underline">alfaazplus@gmail.com</a>
+                or create an issue on
+                <a href="https://github.com/AlfaazPlus/SunnahApp/issues/new/choose" target="_blank"
+                  class="text-quran hover:underline">GitHub</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 dark:bg-gray-900 py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-6 md:mb-0">
+            <span class="text-quran dark:text-quran-300 font-bold text-2xl font-amiri">
+              SunnahApp
+            </span>
+          </div>
+
+          <div class="flex space-x-6">
+            <a target="_blank" href="https://github.com/AlfaazPlus/SunnahApp"
+              class="text-gray-600 dark:text-gray-400 hover:text-quran dark:hover:text-quran-300 transition-colors"
+              aria-label="GitHub">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                </path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
 </body>
+
 </html>
