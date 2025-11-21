@@ -4,10 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SunnahApp</title>
-  <link rel="icon" type="image/x-icon" href="/images/siteicons/icon.svg" />
+  <title>SunnahApp - Explore the Sunnah Privately</title>
+  <link rel="icon" type="image/webp" href="/images/siteicons/icon.webp" />
+  <meta name="description"
+    content="Privacy-focused SunnahApp with no ads, tracking, or data collection. Features 9 major hadith collections, narrator chains, and offline support." />
   <meta name="author" content="AlfaazPlus" />
-  <meta property="og:title" content="SunnahApp" />
+  <meta property="og:image" content="/images/og.webp" />
+  <meta property="og:title" content="SunnahApp - Privacy-Focused Sunnah Explorer" />
+  <meta property="og:description"
+    content="Explore the Sunnah privately with no ads or tracking. Features Sahih Bukhari, Muslim, and more." />
   <meta name="theme-color" content="#008B5B" />
 
   <!-- Tailwind CSS from CDN -->
@@ -18,94 +23,583 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" />
 
   <!-- Tailwind Config -->
-  <script>
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          fontFamily: {
-            outfit: ["Outfit", "sans-serif"],
-            amiri: ["Amiri", "serif"],
-          },
-          colors: {
-            quran: {
-              DEFAULT: "#008B5B",
-              50: "#F0F9F7",
-              100: "#C2E3D3",
-              200: "#8FCDB0",
-              300: "#5CA68A",
-              400: "#2F7D63",
-              500: "#008B5B",
-              600: "#006F4A",
-              700: "#00533A",
-              800: "#003A2B",
-              900: "#00241D",
-            },
-            gold: {
-              DEFAULT: "#D4AF37",
-              light: "#F8EFD4",
-              dark: "#A08429",
-            },
-          },
-          animation: {
-            "fade-in": "fadeIn 0.4s ease-out",
-            "fade-in-up": "fadeInUp 0.5s ease-out",
-            "scale-in": "scaleIn 0.3s ease-out",
-          },
-          keyframes: {
-            fadeIn: {
-              "0%": {
-                opacity: "0"
-              },
-              "100%": {
-                opacity: "1"
-              },
-            },
-            fadeInUp: {
-              "0%": {
-                opacity: "0",
-                transform: "translateY(10px)"
-              },
-              "100%": {
-                opacity: "1",
-                transform: "translateY(0)"
-              },
-            },
-            scaleIn: {
-              "0%": {
-                opacity: "0",
-                transform: "scale(0.95)"
-              },
-              "100%": {
-                opacity: "1",
-                transform: "scale(1)"
-              },
-            },
-          },
-        },
-      },
-    };
-  </script>
+  <script src="js/tailwind-config.js"></script>
 
-  <style>
-    body {
-      font-family: "Outfit", sans-serif;
-    }
-
-    .section-title {
-      @apply text-3xl md:text-4xl font-bold mb-6 text-quran-400 relative;
-    }
-
-    .section-title::after {
-      content: "";
-      @apply block w-20 h-1 bg-quran-400 mt-2 mx-auto;
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+  <!-- Security: Noscript Fallback -->
+  <noscript>
+    <div class="bg-yellow-100 border border-yellow-400 p-4 text-center text-yellow-700">
+      JavaScript is required for the full functionality of this site.
+    </div>
+  </noscript>
+  <!-- Header -->
+  <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <!-- Logo -->
+        <a href="#" class="flex-shrink-0 flex items-center gap-2">
+          <img src="/images/siteicons/icon.webp" alt="SunnahApp Logo" class="h-12" />
+          <div class="flex flex-col">
+            <span class="text-2xl font-bold leading-tight text-gray-900 dark:text-white">SunnahApp</span>
+            <span class="leading-tight text-sm text-gray-600 dark:text-gray-400">Read & explore</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-6 items-center">
+          <a href="#home" class="nav-link active">Home</a>
+          <a href="#features" class="nav-link">Features</a>
+          <a href="#screenshots" class="nav-link">Screenshots</a>
+          <a href="#support" class="nav-link">Support</a>
+          <a href="#privacy" class="nav-link">Privacy</a>
+          <a href="#about" class="nav-link">About</a>
+          <button id="theme-toggle" aria-label="Toggle dark mode"
+            class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none transition-colors">
+            <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <div class="flex items-center md:hidden">
+          <button id="theme-toggle-mobile" aria-label="Toggle dark mode"
+            class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none transition-colors">
+            <svg id="sun-icon-mobile" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg id="moon-icon-mobile" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+          <button id="mobile-menu-button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu"
+            class="ml-3 inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-200 hover:text-accent-600 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
+            <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="block h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" class="hidden h-6 w-6" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu"
+      class="hidden md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+      <div class="pt-2 pb-3 space-y-1 px-4">
+        <a href="#home"
+          class="block w-full text-left px-3 py-2 rounded-md font-medium text-accent-600 dark:text-accent-300 bg-accent-50 dark:bg-gray-800">Home</a>
+        <a href="#features"
+          class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">Features</a>
+        <a href="#screenshots"
+          class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">Screenshots</a>
+        <a href="#support"
+          class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">Support</a>
+        <a href="#privacy"
+          class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">Privacy</a>
+        <a href="#about"
+          class="block w-full text-left px-3 py-2 rounded-md font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800">About</a>
+      </div>
+    </div>
+  </header>
+
   <!-- Main Content -->
   <main>
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 md:pt-44 md:pb-32">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+          <div class="flex-1 animate-fade-in-up">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight text-gray-900 dark:text-white mb-6">
+              SunnahApp – Explore the
+              <span class="text-accent-600 dark:text-accent-300 font-amiri" lang="ar">
+                Sunnah
+              </span>
+              Privately.
+            </h1>
+
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
+              A privacy-focused app with no ads, tracking, or data collection.
+              Featuring 9 major hadith collections, narrator chains, and offline support.
+            </p>
+
+            <div class="flex flex-wrap gap-4 mb-10">
+              <button class="px-4 py-2 bg-accent-600 hover:bg-accent-700 text-white rounded-md transition-colors">
+                <a target="_blank" href="https://play.google.com/store/apps/details?id=com.alfaazplus.sunnah">Google
+                  Play</a>
+              </button>
+              <button
+                class="px-4 py-2 border border-accent-600 text-accent-600 hover:bg-accent-50 dark:hover:bg-gray-800 rounded-md transition-colors">
+                <a target="_blank" href="https://github.com/AlfaazPlus/SunnahApp/releases/latest">Direct APK</a>
+              </button>
+            </div>
+
+            <button id="explore-features"
+              class="flex items-center text-accent-600 dark:text-accent-300 hover:text-accent-700 dark:hover:text-accent-200 transition-colors">
+              Explore Features
+              <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <polyline points="19 12 12 19 5 12"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <div class="flex-1 flex justify-center lg:justify-end animate-scale-in">
+            <div class="relative w-64 md:w-80 h-auto">
+              <div class="phone-mockup phone-mockup-no-title">
+                <img src="/images/screenshots/light/ss0.svg" alt="SunnahApp Preview" class="block dark:hidden" />
+                <img src="/images/screenshots/dark/ss0.svg" alt="SunnahApp Preview (Dark)" class="hidden dark:block" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50 dark:bg-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="section-title mx-auto">Features</h2>
+          <p class="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            SunnahApp is designed with simplicity and privacy at its core,
+            offering powerful tools for students of knowledge.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Feature 1 -->
+          <div class="feature-card" style="animation-delay: 0s">
+            <div class="mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent-600" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-2">No Ads, No Tracking</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Completely free of advertisements, trackers, and unnecessary
+              permissions.
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="feature-card" style="animation-delay: 0.1s">
+            <div class="mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent-600" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-2">9 Major Collections</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Access Sahih Bukhari, Muslim, Tirmidhi, Abu Dawood, and more in one place.
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="feature-card" style="animation-delay: 0.2s">
+            <div class="mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent-600" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Advanced Search</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Powerful search functionality to find hadiths by keywords, narrators, or topics.
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="feature-card" style="animation-delay: 0.3s">
+            <div class="mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent-600" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Narrator Chains</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Explore detailed Isnad (chain of narrators) and scholar information.
+            </p>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="feature-card" style="animation-delay: 0.4s">
+            <div class="mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent-600" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Bookmarking</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Save important hadiths and organize them for quick access later.
+            </p>
+          </div>
+
+          <!-- Feature 6 -->
+          <div class="feature-card" style="animation-delay: 0.5s">
+            <div class="mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent-600" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Privacy-First</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              All your data remains secure on your device, never uploaded to
+              servers.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section id="screenshots" class="py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="section-title mx-auto">Screenshots</h2>
+          <p class="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Clean, intuitive interfaces designed for the best reading experience.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+          <!-- Screenshot 1 -->
+          <div class="relative transition-transform duration-300 hover:scale-105">
+            <div class="phone-mockup">
+              <img src="/images/screenshots/light/ss1.svg" alt="SunnahApp Home Screen" class="block dark:hidden" />
+              <img src="/images/screenshots/dark/ss1.svg" alt="SunnahApp Home Screen (Dark)" class="hidden dark:block" />
+              <div class="mockup-title">Home Screen</div>
+            </div>
+          </div>
+
+          <!-- Screenshot 2 -->
+          <div class="relative transition-transform duration-300 hover:scale-105">
+            <div class="phone-mockup">
+              <img src="/images/screenshots/light/ss2.svg" alt="SunnahApp Books" class="block dark:hidden" />
+              <img src="/images/screenshots/dark/ss2.svg" alt="SunnahApp Books (Dark)" class="hidden dark:block" />
+              <div class="mockup-title">Books Index</div>
+            </div>
+          </div>
+
+          <!-- Screenshot 3 -->
+          <div class="relative transition-transform duration-300 hover:scale-105">
+            <div class="phone-mockup">
+              <img src="/images/screenshots/light/ss3.svg" alt="SunnahApp Reader" class="block dark:hidden" />
+              <img src="/images/screenshots/dark/ss3.svg" alt="SunnahApp Reader (Dark)" class="hidden dark:block" />
+              <div class="mockup-title">Hadith Reader</div>
+            </div>
+          </div>
+
+          <!-- Screenshot 4 -->
+          <div class="relative transition-transform duration-300 hover:scale-105">
+            <div class="phone-mockup">
+              <img src="/images/screenshots/light/ss4.svg" alt="SunnahApp Search" class="block dark:hidden" />
+              <img src="/images/screenshots/dark/ss4.svg" alt="SunnahApp Search (Dark)" class="hidden dark:block" />
+              <div class="mockup-title">Search</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support" class="py-20 bg-gray-50 dark:bg-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="section-title mx-auto">Support</h2>
+          <p class="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Find answers to common questions or reach out for help.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+          <!-- Basic Settings Guide -->
+          <div>
+            <h3 class="text-2xl font-bold mb-6">Basic Settings Guide</h3>
+            <div class="space-y-4 faq-container">
+              <!-- Setting 1 -->
+              <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                <button
+                  class="faq-question flex justify-between items-center w-full px-6 py-4 text-left font-medium focus:outline-none">
+                  <span>How do I change the App Theme?</span>
+                  <svg class="chevron-down h-5 w-5 text-accent-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                  <svg class="chevron-up h-5 w-5 text-accent-600 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </button>
+                <div class="faq-answer px-6 pb-4 hidden">
+                  <p class="text-gray-600 dark:text-gray-300">
+                    You can change the app theme in <strong>Settings > App Settings > App Theme</strong>. Options include System Default, Light, and Dark.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Setting 2 -->
+              <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                <button
+                  class="faq-question flex justify-between items-center w-full px-6 py-4 text-left font-medium focus:outline-none">
+                  <span>How do I enable Daily Reminders?</span>
+                  <svg class="chevron-down h-5 w-5 text-accent-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                  <svg class="chevron-up h-5 w-5 text-accent-600 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </button>
+                <div class="faq-answer px-6 pb-4 hidden">
+                  <p class="text-gray-600 dark:text-gray-300">
+                    Go to <strong>Settings > App Settings > Daily Reminder</strong> to enable or disable daily hadith notifications.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Setting 3: Customize Reader Settings (Combined) -->
+              <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                <button
+                  class="faq-question flex justify-between items-center w-full px-6 py-4 text-left font-medium focus:outline-none">
+                  <span>How to customize reader settings?</span>
+                  <svg class="chevron-down h-5 w-5 text-accent-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                  <svg class="chevron-up h-5 w-5 text-accent-600 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </button>
+                <div class="faq-answer px-6 pb-4 hidden">
+                  <div class="text-gray-600 dark:text-gray-300 space-y-2">
+                    <p>In <strong>Settings > Reader Settings</strong>, you can customize your reading experience:</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                      <li><strong>Hadith Layout</strong>: Switch between Horizontal and Vertical layouts.</li>
+                      <li><strong>Text Size & Style</strong>: Adjust the font size and style for Arabic and translation.</li>
+                      <li><strong>Hadith Text Option</strong>: Choose to show both Arabic and translation, or just one of them.</li>
+                      <li><strong>Show Sanad</strong>: Toggle to display the chain of narrators for each Hadith.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Setting 4: Resource Download Source -->
+              <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                <button
+                  class="faq-question flex justify-between items-center w-full px-6 py-4 text-left font-medium focus:outline-none">
+                  <span>How to change resource download source?</span>
+                  <svg class="chevron-down h-5 w-5 text-accent-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                  <svg class="chevron-up h-5 w-5 text-accent-600 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </button>
+                <div class="faq-answer px-6 pb-4 hidden">
+                  <p class="text-gray-600 dark:text-gray-300">
+                    Go to <strong>Settings > Other > Resource Download Source</strong> to select your preferred server for downloading app resources (e.g., gh-proxy.alfaazplus.com).
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Frequently Asked Questions -->
+          <div>
+            <h3 class="text-2xl font-bold mb-6">Frequently Asked Questions</h3>
+
+            <div class="space-y-4 faq-container">
+              <!-- FAQ 1 -->
+              <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                <button
+                  class="faq-question flex justify-between items-center w-full px-6 py-4 text-left font-medium focus:outline-none">
+                  <span>Is SunnahApp completely free?</span>
+                  <svg class="chevron-down h-5 w-5 text-accent-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                  <svg class="chevron-up h-5 w-5 text-accent-600 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </button>
+                <div class="faq-answer px-6 pb-4 hidden">
+                  <p class="text-gray-600 dark:text-gray-300">
+                    Yes, SunnahApp is 100% free and open-source with no in-app
+                    purchases or subscriptions required.
+                  </p>
+                </div>
+              </div>
+
+              <!-- FAQ 2 -->
+              <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                <button
+                  class="faq-question flex justify-between items-center w-full px-6 py-4 text-left font-medium focus:outline-none">
+                  <span>Does it work offline?</span>
+                  <svg class="chevron-down h-5 w-5 text-accent-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                  <svg class="chevron-up h-5 w-5 text-accent-600 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </button>
+                <div class="faq-answer px-6 pb-4 hidden">
+                  <p class="text-gray-600 dark:text-gray-300">
+                    Yes, once downloaded, the app works completely offline without needing an internet connection.
+                  </p>
+                </div>
+              </div>
+
+              <!-- FAQ 3 -->
+              <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                <button
+                  class="faq-question flex justify-between items-center w-full px-6 py-4 text-left font-medium focus:outline-none">
+                  <span>How can I contribute?</span>
+                  <svg class="chevron-down h-5 w-5 text-accent-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                  <svg class="chevron-up h-5 w-5 text-accent-600 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </button>
+                <div class="faq-answer px-6 pb-4 hidden">
+                  <p class="text-gray-600 dark:text-gray-300">
+                    You can contribute by reporting bugs, suggesting features,
+                    or submitting code improvements through our <a target="_blank" class="text-accent-600 hover:underline"
+                      href="https://github.com/AlfaazPlus/SunnahApp">GitHub repository</a>.
+                  </p>
+                </div>
+              </div>
+
+              <!-- FAQ 4 -->
+              <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+                <button
+                  class="faq-question flex justify-between items-center w-full px-6 py-4 text-left font-medium focus:outline-none">
+                  <span>Is there an iOS version?</span>
+                  <svg class="chevron-down h-5 w-5 text-accent-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                  <svg class="chevron-up h-5 w-5 text-accent-600 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                  </svg>
+                </button>
+                <div class="faq-answer px-6 pb-4 hidden">
+                  <p class="text-gray-600 dark:text-gray-300">
+                    Currently, SunnahApp is only available for Android. An iOS version is under consideration for future development.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-md">
+          <h3 class="text-2xl font-bold mb-4">Need More Help?</h3>
+          <p class="text-gray-600 dark:text-gray-300 mb-6">
+            If you're experiencing issues or have suggestions, please reach
+            out through one of these channels:
+          </p>
+
+          <div class="flex flex-col md:flex-row gap-6">
+            <div class="flex-1 p-6 border border-gray-200 dark:border-gray-700 rounded-lg">
+              <h4 class="text-xl font-medium mb-4">Report an Issue</h4>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">
+                Found a bug? Let us know so we can fix it.
+              </p>
+              <a href="https://github.com/AlfaazPlus/SunnahApp/issues/new/choose" target="_blank">
+                <button class="w-full px-4 py-2 bg-accent-600 hover:bg-accent-700 text-white rounded transition-colors">
+                  Submit Bug Report
+                </button>
+              </a>
+            </div>
+
+            <div class="flex-1 p-6 border border-gray-200 dark:border-gray-700 rounded-lg">
+              <h4 class="text-xl font-medium mb-4">Community</h4>
+              <p class="text-gray-600 dark:text-gray-300 mb-4">
+                Join our community on Discord, Matrix, or Telegram.
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <a href="https://discord.com/invite/vtutnwzxRb" target="_blank" 
+                   class="inline-flex items-center gap-2 px-4 py-2 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-lg transition-colors">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+                  </svg>
+                  Discord
+                </a>
+                <a href="https://matrix.to/#/#AlfaazPlus-ot:matrix.org" target="_blank" 
+                   class="inline-flex items-center gap-2 px-4 py-2 bg-[#000000] hover:bg-[#1a1a1a] text-white rounded-lg transition-colors">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M.632.55v22.9H2.28V24H0V0h2.28v.55zm7.043 7.26v1.157h.033c.309-.443.683-.784 1.117-1.024.433-.245.936-.365 1.5-.365.54 0 1.033.107 1.481.314.448.208.785.582 1.02 1.108.254-.374.6-.706 1.034-.992.434-.287.95-.43 1.546-.43.453 0 .872.056 1.26.167.388.11.716.286.993.53.276.245.489.559.646.951.152.392.23.863.23 1.417v5.728h-2.349V11.52c0-.286-.01-.559-.032-.812a1.755 1.755 0 0 0-.18-.66 1.106 1.106 0 0 0-.438-.448c-.194-.11-.457-.166-.785-.166-.332 0-.6.064-.803.189a1.38 1.38 0 0 0-.48.499 1.946 1.946 0 0 0-.231.696 5.56 5.56 0 0 0-.06.785v4.768h-2.35v-4.8c0-.254-.004-.503-.018-.752a2.074 2.074 0 0 0-.143-.688 1.052 1.052 0 0 0-.415-.503c-.194-.125-.476-.19-.854-.19-.111 0-.259.024-.439.074-.18.051-.36.143-.53.282-.171.138-.319.337-.439.595-.12.259-.18.6-.18 1.02v4.966H5.46V7.81zm15.693 15.64V.55H21.72V0H24v24h-2.28v-.55z"/>
+                  </svg>
+                  Matrix
+                </a>
+                <a href="https://t.me/thequranapp" target="_blank" 
+                   class="inline-flex items-center gap-2 px-4 py-2 bg-[#0088cc] hover:bg-[#006699] text-white rounded-lg transition-colors">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12a12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472c-.18 1.898-.962 6.502-1.36 8.627c-.168.9-.499 1.201-.82 1.23c-.696.065-1.225-.46-1.9-.902c-1.056-.693-1.653-1.124-2.678-1.8c-1.185-.78-.417-1.21.258-1.91c.177-.184 3.247-2.977 3.307-3.23c.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345c-.48.33-.913.49-1.302.48c-.428-.008-1.252-.241-1.865-.44c-.752-.245-1.349-.374-1.297-.789c.027-.216.325-.437.893-.663c3.498-1.524 5.83-2.529 6.998-3.014c3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                  </svg>
+                  Telegram
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Privacy Section -->
     <section id="privacy" class="py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -173,10 +667,53 @@
               <p class="text-gray-600 dark:text-gray-300">
                 If you want further information about our Privacy Policy,
                 please feel free to contact us at
-                <a href="mailto:alfaazplus@gmail.com" class="text-quran hover:underline">alfaazplus@gmail.com</a>
+                <a href="mailto:alfaazplus@gmail.com" class="text-accent-600 hover:underline">alfaazplus@gmail.com</a>
                 or create an issue on
                 <a href="https://github.com/AlfaazPlus/SunnahApp/issues/new/choose" target="_blank"
-                  class="text-quran hover:underline">GitHub</a>.
+                  class="text-accent-600 hover:underline">GitHub</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50 dark:bg-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="section-title mx-auto">About</h2>
+          <p class="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Learn more about our mission and the team behind SunnahApp.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+            <div class="p-8">
+              <h3 class="text-2xl font-bold mb-6">About the Sunnah</h3>
+
+              <p class="text-gray-600 dark:text-gray-300 mb-6">
+                The Sunnah refers to the traditions and practices of the Islamic prophet Muhammad (peace be upon him) that constitute a model for Muslims to follow.
+              </p>
+
+              <p class="text-gray-600 dark:text-gray-300">
+                The Sunnah is what the Prophet (peace be upon him) said, did, or tacitly approved of. It is the second source of Islamic law after the Quran.
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+            <div class="p-8">
+              <h3 class="text-2xl font-bold mb-6">About SunnahApp</h3>
+
+              <p class="text-gray-600 dark:text-gray-300 mb-6">
+                The SunnahApp is an ad-free and privacy-focused mobile
+                application that facilitates exploring the Sunnah of the Prophet (peace be upon him).
+              </p>
+
+              <p class="text-gray-600 dark:text-gray-300">
+                It provides access to major hadith collections with translations, narrator chains, and scholar information, all in a clean, modern interface.
               </p>
             </div>
           </div>
@@ -189,14 +726,17 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row justify-between items-center">
           <div class="mb-6 md:mb-0">
-            <span class="text-quran dark:text-quran-300 font-bold text-2xl font-amiri">
+            <span class="text-accent-600 dark:text-accent-300 font-bold text-2xl font-amiri">
               SunnahApp
             </span>
+            <p class="text-gray-600 dark:text-gray-400 mt-2">
+              Privacy-focused Sunnah explorer
+            </p>
           </div>
 
           <div class="flex space-x-6">
             <a target="_blank" href="https://github.com/AlfaazPlus/SunnahApp"
-              class="text-gray-600 dark:text-gray-400 hover:text-quran dark:hover:text-quran-300 transition-colors"
+              class="text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-300 transition-colors"
               aria-label="GitHub">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -207,9 +747,30 @@
             </a>
           </div>
         </div>
+
+        <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 flex flex-col md:flex-row justify-between">
+          <div class="mb-4 md:mb-0">
+            <p class="text-gray-600 dark:text-gray-400">
+              © <span id="current-year"></span> <a href="https://alfaazplus.com" target="_blank" class="hover:text-accent-600 dark:hover:text-accent-300 transition-colors">AlfaazPlus</a>. All rights reserved.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-6">
+            <a href="#privacy"
+              class="text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-300 transition-colors">
+              Privacy Policy
+            </a>
+            <a href="#support"
+              class="text-gray-600 dark:text-gray-400 hover:text-accent-600 dark:hover:text-accent-300 transition-colors">
+              Support
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
 
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
 </body>
 
 </html>
